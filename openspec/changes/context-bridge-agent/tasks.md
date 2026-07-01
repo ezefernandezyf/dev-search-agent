@@ -27,15 +27,15 @@ Chain strategy: feature-branch-chain
 
 ## Phase 1: Bootstrap & Contracts
 
-- [ ] 1.1 Create `pnpm-workspace.yaml` with 3 packages (`slack-app`, `mcp-server`, `shared`)
-- [ ] 1.2 Create `tsconfig.base.json` (strict, ESNext module, NodeNext resolution)
-- [ ] 1.3 Create `shared/package.json` (name: `@context-bridge/shared`, deps: zod) + `shared/tsconfig.json` (ref: base)
-- [ ] 1.4 RED: Write Vitest tests for `tools.ts` and `synthesis.ts` Zod schemas (assert valid/invalid shapes)
-- [ ] 1.5 GREEN: Implement `shared/contracts/tools.ts` (SearchDocsInput/Output, NpmPackageInput/Output, GithubIssueInput/Output, SlackSearchInput/Output)
-- [ ] 1.6 GREEN: Implement `shared/contracts/synthesis.ts` (SourceSection, SynthesisInput, SynthesisOutput)
-- [ ] 1.7 Create `mcp-server/package.json` (deps: express, cors, zod, @context-bridge/shared) + `mcp-server/tsconfig.json`
-- [ ] 1.8 Create `slack-app/package.json` (deps: @slack/bolt, @slack/web-api, zod, @context-bridge/shared) + `slack-app/tsconfig.json`
-- [ ] 1.9 Create ESLint 9 flat config + Prettier config at root; add `lint`/`format` scripts to each `package.json`
+- [x] 1.1 Create `pnpm-workspace.yaml` with 3 packages (`slack-app`, `mcp-server`, `shared`)
+- [x] 1.2 Create `tsconfig.base.json` (strict, ESNext module, NodeNext resolution)
+- [x] 1.3 Create `shared/package.json` (name: `@context-bridge/shared`, deps: zod) + `shared/tsconfig.json` (ref: base)
+- [x] 1.4 RED: Write Vitest tests for `tools.ts` and `synthesis.ts` Zod schemas (assert valid/invalid shapes) — 41 tests passing
+- [x] 1.5 GREEN: Implement `shared/contracts/tools.ts` (SearchDocsInput/Output, NpmPackageInput/Output, GithubIssueInput/Output, SlackSearchInput/Output)
+- [x] 1.6 GREEN: Implement `shared/contracts/synthesis.ts` (SourceSection, SynthesisInput, SynthesisOutput)
+- [x] 1.7 Create `mcp-server/package.json` (deps: express, cors, zod, @context-bridge/shared) + `mcp-server/tsconfig.json`
+- [x] 1.8 Create `slack-app/package.json` (deps: @slack/bolt, @slack/web-api, zod, @context-bridge/shared) + `slack-app/tsconfig.json`
+- [x] 1.9 Create ESLint 9 flat config + Prettier config at root; add `lint`/`format` scripts to each `package.json`
 
 ## Phase 2: MCP Server
 
