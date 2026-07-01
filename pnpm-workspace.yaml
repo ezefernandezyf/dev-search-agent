@@ -1,0 +1,6 @@
+packages:
+  - 'shared'
+  - 'mcp-server'
+  - 'slack-app'
+allowBuilds:
+  esbuild: false
