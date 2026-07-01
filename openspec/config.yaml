@@ -1,0 +1,55 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Project: context-bridge — AI-powered Slack agent using MCP and Slack's Real-Time Search API
+  Stack: Node.js + TypeScript, Bolt for JavaScript (Socket Mode), Express, Zod, PostgreSQL/Prisma, pnpm
+  Architecture: Monorepo (slack-app/, mcp-server/, shared/), Screaming Architecture for Bolt app, REST-ish HTTP between agent and MCP server
+  Testing: Vitest, ESLint 9 flat config, Prettier, TypeScript strict
+  Style: Screaming Architecture, hexagonal/clean layers
+
+strict_tdd: true
+
+testing:
+  runner: vitest
+  runner_command: "pnpm vitest run"
+  watch_command: "pnpm vitest"
+  coverage: true
+  coverage_command: "pnpm vitest run --coverage"
+  layers:
+    unit: vitest
+    integration: vitest
+    e2e: null
+  quality:
+    linter: eslint
+    linter_command: "pnpm eslint ."
+    type_checker: typescript
+    type_checker_command: "pnpm tsc --noEmit"
+    formatter: prettier
+    formatter_command: "pnpm prettier --check ."
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Define scope boundaries for each change
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Each spec MUST reference the MCP tool or Slack API it affects
+  design:
+    - Include sequence diagrams for complex flows
+    - Document architecture decisions with rationale
+    - Show contract boundaries between slack-app/, mcp-server/, and shared/
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing code patterns
+    tdd: true
+    test_command: "pnpm vitest run"
+  verify:
+    test_command: "pnpm vitest run"
+    build_command: "pnpm tsc --noEmit"
+    coverage_threshold: 80
+  archive:
+    - Warn before merging destructive deltas
