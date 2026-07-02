@@ -39,14 +39,14 @@ Chain strategy: feature-branch-chain
 
 ## Phase 2: MCP Server
 
-- [ ] 2.1 RED: Write test for JSON-RPC 2.0 dispatcher — stub HTTP POST to `/rpc`, assert `id`/`jsonrpc` in response
-- [ ] 2.2 GREEN: Implement `mcp-server/src/index.ts` — Express server on `:4000`, JSON-RPC 2.0 `POST /rpc` handler, tool router by `params.name`
-- [ ] 2.3 RED: Write failing test for `search_docs` handler — stub fetch to external docs, assert Zod output shape
-- [ ] 2.4 GREEN: Implement `mcp-server/src/tools/search-docs.ts` — fetch React/MDN docs, validate with `SearchDocsOutput`
-- [ ] 2.5 RED: Write failing test for `get_npm_package` — stub npm registry response, assert Zod output
-- [ ] 2.6 GREEN: Implement `mcp-server/src/tools/get-npm-package.ts` — npm registry lookup, parse with `NpmPackageOutput`
-- [ ] 2.7 RED: Write failing test for `get_github_issue` — stub GitHub API response, assert Zod output
-- [ ] 2.8 GREEN: Implement `mcp-server/src/tools/get-github-issue.ts` — GitHub issue search, parse with `GithubIssueOutput`
+- [x] 2.1 RED: Write test for JSON-RPC 2.0 dispatcher — stub HTTP POST to `/rpc`, assert `id`/`jsonrpc` in response
+- [x] 2.2 GREEN: Implement `mcp-server/src/index.ts` — Express server on `:4000`, JSON-RPC 2.0 `POST /rpc` handler, tool router by `params.name`
+- [x] 2.3 RED: Write failing test for `search_docs` handler — stub fetch to external docs, assert Zod output shape
+- [x] 2.4 GREEN: Implement `mcp-server/src/tools/search-docs.ts` — fetch React/MDN docs, validate with `SearchDocsOutput`
+- [x] 2.5 RED: Write failing test for `get_npm_package` — stub npm registry response, assert Zod output
+- [x] 2.6 GREEN: Implement `mcp-server/src/tools/get-npm-package.ts` — npm registry lookup, parse with `NpmPackageOutput`
+- [x] 2.7 RED: Write failing test for `get_github_issue` — stub GitHub API response, assert Zod output
+- [x] 2.8 GREEN: Implement `mcp-server/src/tools/get-github-issue.ts` — GitHub issue search, parse with `GithubIssueOutput`
 
 ## Phase 3: Slack Agent Core
 
