@@ -103,6 +103,11 @@ app.post('/rpc', async (req: Request, res: Response) => {
   }
 });
 
+// Health check endpoint for Render + UptimeRobot
+app.get('/health', (_req: Request, res: Response) => {
+  res.json({ status: 'ok', uptime: process.uptime() });
+});
+
 // Only start the server when run directly (not imported by tests)
 const isTestEnv = typeof process.env.VITEST !== 'undefined';
 if (!isTestEnv) {

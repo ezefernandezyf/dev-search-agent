@@ -11,6 +11,8 @@
     "format:fix": "prettier --write .",
     "dev:mcp": "pnpm --filter @context-bridge/mcp-server dev",
     "dev:slack": "pnpm --filter @context-bridge/slack-app dev",
+    "build": "pnpm --filter @context-bridge/shared build && pnpm --filter @context-bridge/mcp-server build && pnpm --filter @context-bridge/slack-app build",
+    "start": "node mcp-server/dist/index.js & SLACK_PORT=3000 node slack-app/dist/app.js & wait",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

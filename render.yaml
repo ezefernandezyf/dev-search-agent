@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: dev-search-agent
+    runtime: node
+    repo: https://github.com/ezefernandezyf/dev-search-agent
+    plan: free
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    startCommand: pnpm run start
+    envVars:
+      - key: SLACK_BOT_TOKEN
+        sync: false
+      - key: SLACK_APP_TOKEN
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: NODE_VERSION
+        value: 24.16.0

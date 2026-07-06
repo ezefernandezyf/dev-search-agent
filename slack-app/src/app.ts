@@ -2,7 +2,7 @@ import { App } from '@slack/bolt';
 import type { Middleware, SlackEventMiddlewareArgs } from '@slack/bolt';
 import { createAppMentionHandler } from './events/app-mention.js';
 
-const PORT = Number(process.env['PORT'] ?? '3000');
+const PORT = Number(process.env['SLACK_PORT'] ?? '3000');
 
 const app = new App({
   token: process.env['SLACK_BOT_TOKEN'] ?? '',
