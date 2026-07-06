@@ -58,11 +58,11 @@ Chain strategy: feature-branch-chain
 
 ## Phase 4: Wiring & Integration
 
-- [ ] 4.1 Implement `slack-app/src/app.ts` — Bolt entry (Socket Mode), import and wire `app_mention` handler
-- [ ] 4.2 Implement `slack-app/src/events/app-mention.ts` — extract question → `Promise.allSettled` ([MCP:3tools, RTS:search]) → synthesize → `say()` Block Kit, 2.5s timeout per source
-- [ ] 4.3 Create `manifest.json` — scopes (`app_mentions:read`, `chat:write`, `search:read`), Socket Mode enabled, event subscriptions
-- [ ] 4.4 Create `.env.example` — SLACK_BOT_TOKEN, SLACK_APP_TOKEN, GROQ_API_KEY placeholders
-- [ ] 4.5 RED: Write integration test — mock MCP server (json-rpc-2.0 stub) + mock RTS, assert full pipeline produces valid Block Kit with 4 sections
-- [ ] 4.6 GREEN: Run integration test, fix any pipeline gaps
-- [ ] 4.7 Final pass: `pnpm run lint && pnpm run format && pnpm tsc --noEmit && pnpm vitest run --coverage` (target ≥80%)
-- [ ] 4.8 Demo validation: run against pre-seeded mock data for "How do we handle error boundaries in React?"
+- [x] 4.1 Implement `slack-app/src/app.ts` — Bolt entry (Socket Mode), import and wire `app_mention` handler
+- [x] 4.2 Implement `slack-app/src/events/app-mention.ts` — extract question → `Promise.allSettled` ([MCP:3tools, RTS:search]) → synthesize → `say()` Block Kit, 2.5s timeout per source
+- [x] 4.3 Create `manifest.json` — scopes (`app_mentions:read`, `chat:write`, `search:read`), Socket Mode enabled, event subscriptions
+- [x] 4.4 Create `.env.example` — SLACK_BOT_TOKEN, SLACK_APP_TOKEN, GROQ_API_KEY placeholders
+- [x] 4.5 RED: Write integration test — mock MCP server (json-rpc-2.0 stub) + mock RTS, assert full pipeline produces valid Block Kit with 4 sections
+- [x] 4.6 GREEN: Run integration test, fix any pipeline gaps
+- [x] 4.7 Final pass: `pnpm run lint && pnpm run format && pnpm tsc --noEmit && pnpm vitest run` (target ≥80%)
+- [x] 4.8 Demo validation: run against pre-seeded mock data for "How do we handle error boundaries in React?"
