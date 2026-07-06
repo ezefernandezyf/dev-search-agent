@@ -1,11 +1,11 @@
-import express, { type Request, type Response } from 'express';
+import express, { type Express, type Request, type Response } from 'express';
 import cors from 'cors';
 import { searchDocsHandler } from './tools/search-docs.js';
 import { getNpmPackageHandler } from './tools/get-npm-package.js';
 import { getGithubIssueHandler } from './tools/get-github-issue.js';
 
-const app = express();
-const PORT = process.env.PORT ?? 4000;
+const app: Express = express();
+const PORT = process.env['PORT'] ?? 4000;
 
 app.use(cors());
 app.use(express.json());
@@ -60,8 +60,8 @@ app.post('/rpc', async (req: Request, res: Response) => {
   }
 
   const paramsObj = params ?? {};
-  const toolName = paramsObj.name as string | undefined;
-  const toolArgs = (paramsObj.arguments as Record<string, unknown>) ?? {};
+  const toolName = paramsObj['name'] as string | undefined;
+  const toolArgs = (paramsObj['arguments'] as Record<string, unknown>) ?? {};
 
   if (!toolName || typeof toolName !== 'string') {
     const response: JsonRpcResponse = {
@@ -109,7 +109,7 @@ app.get('/health', (_req: Request, res: Response) => {
 });
 
 // Only start the server when run directly (not imported by tests)
-const isTestEnv = typeof process.env.VITEST !== 'undefined';
+const isTestEnv = typeof process.env['VITEST'] !== 'undefined';
 if (!isTestEnv) {
   app.listen(PORT, () => {
     // eslint-disable-next-line no-console
