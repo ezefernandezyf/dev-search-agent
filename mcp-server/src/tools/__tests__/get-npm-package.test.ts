@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { NpmPackageOutput } from '@context-bridge/shared/contracts/tools.js';
+import { NpmPackageOutput } from '@context-bridge/shared/contracts/tools';
 import { getNpmPackageHandler } from '../get-npm-package.js';
 
 const mockResponse = {

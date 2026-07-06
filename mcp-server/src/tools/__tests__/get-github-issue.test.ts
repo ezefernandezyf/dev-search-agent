@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { GithubIssueOutput } from '@context-bridge/shared/contracts/tools.js';
+import { GithubIssueOutput } from '@context-bridge/shared/contracts/tools';
 import { getGithubIssueHandler } from '../get-github-issue.js';
 
 const mockResponse = {

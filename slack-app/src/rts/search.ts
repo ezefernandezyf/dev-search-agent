@@ -1,6 +1,6 @@
 import { WebClient } from '@slack/web-api';
 import { z } from 'zod';
-import { SlackMessageResult } from '@context-bridge/shared/contracts/tools.js';
+import { SlackMessageResult } from '@context-bridge/shared/contracts/tools';
 
 type SlackMessageResultType = z.infer<typeof SlackMessageResult>;
 

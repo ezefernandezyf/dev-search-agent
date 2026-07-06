@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SearchDocsOutput } from '@context-bridge/shared/contracts/tools.js';
+import { SearchDocsOutput } from '@context-bridge/shared/contracts/tools';
 import { searchDocsHandler } from '../search-docs.js';
 
 describe('searchDocsHandler', () => {

@@ -3,7 +3,7 @@ import { WebClient } from '@slack/web-api';
 import { synthesize } from '../synthesis/index.js';
 import { buildBlockKitResponse } from '../block-kit/response.js';
 import { searchSlackHistory } from '../rts/search.js';
-import { SynthesisInput } from '@context-bridge/shared/contracts/synthesis.js';
+import { SynthesisInput } from '@context-bridge/shared/contracts/synthesis';
 import type { SlackBlockKitMessage } from '../block-kit/response.js';
 
 type SynthesisInputType = z.infer<typeof SynthesisInput>;

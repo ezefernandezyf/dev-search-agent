@@ -1,4 +1,4 @@
-import { NpmPackageInput, NpmPackageOutput } from '@context-bridge/shared/contracts/tools.js';
+import { NpmPackageInput, NpmPackageOutput } from '@context-bridge/shared/contracts/tools';
 
 interface McpToolResponse {
   content: Array<{ type: 'text'; text: string }>;

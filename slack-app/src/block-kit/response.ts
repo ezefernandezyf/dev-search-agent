@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { SynthesisOutput } from '@context-bridge/shared/contracts/synthesis.js';
+import { SynthesisOutput } from '@context-bridge/shared/contracts/synthesis';
 
 type SynthesisOutputType = z.infer<typeof SynthesisOutput>;
 

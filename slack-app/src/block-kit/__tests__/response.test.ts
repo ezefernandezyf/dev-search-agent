@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { z } from 'zod';
 import { buildBlockKitResponse } from '../response.js';
-import { SynthesisOutput } from '@context-bridge/shared/contracts/synthesis.js';
+import { SynthesisOutput } from '@context-bridge/shared/contracts/synthesis';
 
 type SynthesisOutputType = z.infer<typeof SynthesisOutput>;
 

@@ -1,4 +1,4 @@
-import { GithubIssueInput, GithubIssueOutput } from '@context-bridge/shared/contracts/tools.js';
+import { GithubIssueInput, GithubIssueOutput } from '@context-bridge/shared/contracts/tools';
 
 interface McpToolResponse {
   content: Array<{ type: 'text'; text: string }>;

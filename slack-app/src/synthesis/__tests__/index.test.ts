@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { z } from 'zod';
-import { SynthesisInput } from '@context-bridge/shared/contracts/synthesis.js';
+import { SynthesisInput } from '@context-bridge/shared/contracts/synthesis';
 
 type SynthesisInputType = z.infer<typeof SynthesisInput>;
 
