@@ -16,8 +16,7 @@
     "scopes": {
       "bot": [
         "app_mentions:read",
-        "chat:write",
-        "search:read"
+        "chat:write"
       ]
     },
     "redirect_urls": ["https://localhost"]
