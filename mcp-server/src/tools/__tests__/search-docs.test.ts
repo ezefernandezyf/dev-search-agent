@@ -7,8 +7,8 @@ describe('searchDocsHandler', () => {
     vi.restoreAllMocks();
   });
 
-  it('returns valid SearchDocsOutput for a valid query', async () => {
-    const result = await searchDocsHandler({ query: 'error boundaries' });
+  it('returns valid SearchDocsOutput from real API (Wikipedia)', async () => {
+    const result = await searchDocsHandler({ query: 'react error boundaries' });
 
     expect(result.content).toHaveLength(1);
     expect(result.content[0]?.type).toBe('text');
@@ -22,9 +22,10 @@ describe('searchDocsHandler', () => {
       expect(item.url).toBeTruthy();
       expect(item.snippet).toBeTruthy();
     }
-  });
+  }, 15000);
 
-  it('returns results with documentation-oriented titles', async () => {
+  it('returns mock results with react and mdn titles when MOCK_RTS=true', async () => {
+    vi.stubEnv('MOCK_RTS', 'true');
     const result = await searchDocsHandler({ query: 'react hooks' });
     const parsed = JSON.parse(result.content[0]?.text ?? '[]') as Array<{ title: string }>;
 
