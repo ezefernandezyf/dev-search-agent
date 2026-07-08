@@ -8,7 +8,8 @@ import type { SlackBlockKitMessage } from '../block-kit/response.js';
 
 type SynthesisInputType = z.infer<typeof SynthesisInput>;
 
-const MCP_ENDPOINT = 'http://localhost:4000/rpc';
+const MCP_PORT = process.env['PORT'] ?? '4000';
+const MCP_ENDPOINT = `http://localhost:${MCP_PORT}/rpc`;
 const TIMEOUT_MS = 2500;
 
 /** Strips the bot mention tag (e.g. `<@U12345>`) from the start of text. */
