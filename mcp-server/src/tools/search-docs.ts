@@ -5,15 +5,11 @@ interface McpToolResponse {
 }
 
 /**
- * MCP tool handler for `search_docs`.
- *
- * Returns mock documentation results for hackathon reliability.
- * In production, this would call DuckDuckGo Instant Answer API or MDN docs.
+ * Mock documentation results for consistent hackathon demo.
+ * Used when MOCK_RTS=true.
  */
-export async function searchDocsHandler(args: Record<string, unknown>): Promise<McpToolResponse> {
-  const { query } = SearchDocsInput.parse(args);
-
-  const results = [
+function getMockResults(query: string) {
+  return [
     {
       title: `React Documentation: ${query}`,
       url: 'https://react.dev',
@@ -30,9 +26,56 @@ export async function searchDocsHandler(args: Record<string, unknown>): Promise<
       snippet: `Community cheatsheet for ${query}. Quick reference with practical examples and common patterns used by developers.`,
     },
   ];
+}
+
+/**
+ * Searches Wikipedia for relevant documentation articles.
+ * Free API, no auth required — used as real docs source for the hackathon.
+ */
+async function searchWikipedia(query: string) {
+  const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&srlimit=5&origin=*`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Wikipedia API returned ${response.status}`);
+  }
+
+  const data = (await response.json()) as {
+    query?: { search?: Array<{ title: string; snippet: string; pageid: number }> };
+  };
+
+  return (data.query?.search ?? []).map((item) => ({
+    title: item.title,
+    url: `https://en.wikipedia.org/?curid=${item.pageid}`,
+    snippet: item.snippet.replace(/<[^>]+>/g, ''), // strip HTML tags
+  }));
+}
+
+/**
+ * MCP tool handler for `search_docs`.
+ *
+ * In demo mode (MOCK_RTS=true): returns consistent mock docs for reliable demos.
+ * Otherwise: fetches real results from Wikipedia API. Falls back to mock data
+ * if the API is unreachable.
+ */
+export async function searchDocsHandler(args: Record<string, unknown>): Promise<McpToolResponse> {
+  const { query } = SearchDocsInput.parse(args);
+
+  // Demo mode: consistent mock data
+  if (process.env['MOCK_RTS'] === 'true') {
+    const results = getMockResults(query);
+    const output = SearchDocsOutput.parse({ results });
+    return { content: [{ type: 'text', text: JSON.stringify(output.results) }] };
+  }
+
+  // Real mode: try Wikipedia API, fall back to mock
+  let results;
+  try {
+    results = await searchWikipedia(query);
+  } catch {
+    results = getMockResults(query);
+  }
 
   const output = SearchDocsOutput.parse({ results });
-  return {
-    content: [{ type: 'text', text: JSON.stringify(output.results) }],
-  };
+  return { content: [{ type: 'text', text: JSON.stringify(output.results) }] };
 }
