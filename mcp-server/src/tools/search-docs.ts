@@ -28,26 +28,37 @@ function getMockResults(query: string) {
   ];
 }
 
+interface StackOverflowItem {
+  title: string;
+  link: string;
+  score: number;
+  is_answered: boolean;
+  answer_count: number;
+  tags: string[];
+  question_id: number;
+}
+
 /**
- * Searches Wikipedia for relevant documentation articles.
- * Free API, no auth required — used as real docs source for the hackathon.
+ * Searches Stack Overflow for programming documentation.
+ * Free API, no auth required (300 req/day). Returns real developer Q&A.
  */
-async function searchWikipedia(query: string) {
-  const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&srlimit=5&origin=*`;
-  const response = await fetch(url);
+async function searchStackOverflow(query: string) {
+  const url = `https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=relevance&q=${encodeURIComponent(query)}&site=stackoverflow&pagesize=5&key=U4DMV*8nvpm3EOpvf69Rxw((`;
+
+  const response = await fetch(url, {
+    headers: { 'Accept-Encoding': 'gzip' },
+  });
 
   if (!response.ok) {
-    throw new Error(`Wikipedia API returned ${response.status}`);
+    throw new Error(`Stack Exchange API returned ${response.status}`);
   }
 
-  const data = (await response.json()) as {
-    query?: { search?: Array<{ title: string; snippet: string; pageid: number }> };
-  };
+  const data = (await response.json()) as { items?: StackOverflowItem[] };
 
-  return (data.query?.search ?? []).map((item) => ({
-    title: item.title,
-    url: `https://en.wikipedia.org/?curid=${item.pageid}`,
-    snippet: item.snippet.replace(/<[^>]+>/g, ''), // strip HTML tags
+  return (data.items ?? []).map((item) => ({
+    title: `${item.is_answered ? '✓ ' : ''}${item.title} (⭐${item.score})`,
+    url: item.link,
+    snippet: `Stack Overflow — ${item.answer_count} answer${item.answer_count !== 1 ? 's' : ''}. Tags: ${item.tags.slice(0, 3).join(', ')}`,
   }));
 }
 
@@ -55,8 +66,8 @@ async function searchWikipedia(query: string) {
  * MCP tool handler for `search_docs`.
  *
  * In demo mode (MOCK_RTS=true): returns consistent mock docs for reliable demos.
- * Otherwise: fetches real results from Wikipedia API. Falls back to mock data
- * if the API is unreachable.
+ * Otherwise: fetches real results from Stack Overflow API. Falls back to mock
+ * data if the API is unreachable or rate-limited.
  */
 export async function searchDocsHandler(args: Record<string, unknown>): Promise<McpToolResponse> {
   const { query } = SearchDocsInput.parse(args);
@@ -68,10 +79,10 @@ export async function searchDocsHandler(args: Record<string, unknown>): Promise<
     return { content: [{ type: 'text', text: JSON.stringify(output.results) }] };
   }
 
-  // Real mode: try Wikipedia API, fall back to mock
+  // Real mode: try Stack Overflow API, fall back to mock
   let results;
   try {
-    results = await searchWikipedia(query);
+    results = await searchStackOverflow(query);
   } catch {
     results = getMockResults(query);
   }

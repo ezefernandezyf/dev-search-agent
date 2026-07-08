@@ -7,8 +7,8 @@ describe('searchDocsHandler', () => {
     vi.restoreAllMocks();
   });
 
-  it('returns valid SearchDocsOutput from real API (Wikipedia)', async () => {
-    const result = await searchDocsHandler({ query: 'react error boundaries' });
+  it('returns valid SearchDocsOutput from real API (Stack Overflow)', async () => {
+    const result = await searchDocsHandler({ query: 'react useeffect' });
 
     expect(result.content).toHaveLength(1);
     expect(result.content[0]?.type).toBe('text');
@@ -21,6 +21,8 @@ describe('searchDocsHandler', () => {
       expect(item.title).toBeTruthy();
       expect(item.url).toBeTruthy();
       expect(item.snippet).toBeTruthy();
+      // Stack Overflow results should link to stackoverflow.com
+      expect(item.url).toMatch(/stackoverflow\.com/);
     }
   }, 15000);
 

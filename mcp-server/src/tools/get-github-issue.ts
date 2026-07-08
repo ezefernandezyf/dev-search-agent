@@ -46,12 +46,19 @@ export async function getGithubIssueHandler(args: Record<string, unknown>): Prom
   }
 
   const url = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=5`;
-  const response = await fetch(url, {
-    headers: {
-      Accept: 'application/vnd.github.v3+json',
-      'User-Agent': 'context-bridge-mcp-server/0.1.0',
-    },
-  });
+
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+    'User-Agent': 'context-bridge-mcp-server/0.1.0',
+  };
+
+  // Optional token increases rate limit from 60 → 5000 req/hour
+  const githubToken = process.env['GITHUB_TOKEN'];
+  if (githubToken) {
+    headers['Authorization'] = `Bearer ${githubToken}`;
+  }
+
+  const response = await fetch(url, { headers });
 
   if (!response.ok) {
     throw new Error(`GitHub API returned ${response.status}`);
