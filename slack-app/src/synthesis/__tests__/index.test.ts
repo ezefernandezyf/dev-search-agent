@@ -123,7 +123,7 @@ describe('synthesize', () => {
     expect(url).toBe('https://api.groq.com/openai/v1/chat/completions');
 
     const body = JSON.parse(options.body as string) as Record<string, unknown>;
-    expect(body['model']).toBe('llama-3.3-70b-versatile');
+    expect(body['model']).toBe('llama-3.1-8b-instant');
     expect(body['response_format']).toEqual({ type: 'json_object' });
   });
 

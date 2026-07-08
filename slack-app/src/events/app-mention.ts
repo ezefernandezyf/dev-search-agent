@@ -156,13 +156,25 @@ function buildFallbackResponse(
         })
         .join('\n');
 
-      blocks.push({
+      // Extract first item's link as section accessory button
+      const firstItem = (source.data as Record<string, unknown>[])[0];
+      const sectionUrl = String(firstItem?.['url'] ?? firstItem?.['permalink'] ?? '');
+
+      const sectionBlock: { type: string; text: { type: string; text: string }; accessory?: { type: string; text: { type: string; text: string }; url: string; action_id: string } } = {
         type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `*${cfg.emoji} ${cfg.label}*\n${items}`,
-        },
-      });
+        text: { type: 'mrkdwn', text: `*${cfg.emoji} ${cfg.label}*\n${items}` },
+      };
+
+      if (sectionUrl) {
+        sectionBlock.accessory = {
+          type: 'button',
+          text: { type: 'plain_text', text: 'View source' },
+          url: sectionUrl,
+          action_id: `fallback_${cfg.key}`,
+        };
+      }
+
+      blocks.push(sectionBlock as SlackBlockKitMessage['blocks'][number]);
     }
   }
 

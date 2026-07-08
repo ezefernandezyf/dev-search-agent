@@ -5,7 +5,7 @@ type SynthesisInputType = z.infer<typeof SynthesisInput>;
 type SynthesisOutputType = z.infer<typeof SynthesisOutput>;
 
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_MODEL = process.env['GROQ_MODEL'] ?? 'llama-3.1-8b-instant';
 
 const SYSTEM_PROMPT = `You are a senior developer synthesizing information from multiple sources to answer a technical question.
 
