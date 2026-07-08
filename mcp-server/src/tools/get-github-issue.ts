@@ -7,11 +7,43 @@ interface McpToolResponse {
 /**
  * MCP tool handler for `get_github_issue`.
  *
- * Searches GitHub issues via the public API (no auth required for public repos).
- * Rate-limited to 60 requests/hour without authentication.
+ * Returns mock GitHub issue data in demo mode (MOCK_RTS=true).
+ * In production, searches GitHub issues via the public API.
  */
 export async function getGithubIssueHandler(args: Record<string, unknown>): Promise<McpToolResponse> {
   const { query } = GithubIssueInput.parse(args);
+
+  // Mock mode for reliable hackathon demo
+  if (process.env['MOCK_RTS'] === 'true') {
+    const results = [
+      {
+        title: 'Error boundaries should support functional components with hooks',
+        url: 'https://github.com/facebook/react/issues/19630',
+        number: 19630,
+        state: 'open',
+        repo: 'facebook/react',
+        snippet: 'Currently error boundaries require class components. A hook-based API (useErrorBoundary or similar) would allow functional components to act as error boundaries without the class boilerplate.',
+      },
+      {
+        title: 'Add resetErrorBoundary to reset the error state and retry rendering',
+        url: 'https://github.com/bvaughn/react-error-boundary/issues/85',
+        number: 85,
+        state: 'closed',
+        repo: 'bvaughn/react-error-boundary',
+        snippet: 'Feature request: expose a reset function from the error boundary that parent components can call to clear the error state and re-render the children. This enables "Try again" UX patterns.',
+      },
+      {
+        title: 'TypeScript: errorInfo type is any in componentDidCatch',
+        url: 'https://github.com/DefinitelyTyped/DefinitelyTyped/issues/65052',
+        number: 65052,
+        state: 'closed',
+        repo: 'DefinitelyTyped/DefinitelyTyped',
+        snippet: 'The errorInfo parameter in componentDidCatch is typed as any in @types/react. It should be typed as { componentStack: string } for better TypeScript support.',
+      },
+    ];
+    const output = GithubIssueOutput.parse({ results: results.filter(() => true) });
+    return { content: [{ type: 'text', text: JSON.stringify(output.results) }] };
+  }
 
   const url = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=5`;
   const response = await fetch(url, {
