@@ -1,0 +1,27 @@
+{
+  "name": "@context-bridge/slack-app",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "node --watch dist/app.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@context-bridge/shared": "workspace:*",
+    "@slack/bolt": "^4.2.1",
+    "@slack/web-api": "^7.8.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.6"
+  }
+}

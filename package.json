@@ -1,0 +1,26 @@
+{
+  "name": "context-bridge",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "dev:mcp": "pnpm --filter @context-bridge/mcp-server dev",
+    "dev:slack": "pnpm --filter @context-bridge/slack-app dev",
+    "build": "pnpm --filter @context-bridge/shared build && pnpm --filter @context-bridge/mcp-server build && pnpm --filter @context-bridge/slack-app build",
+    "start": "node mcp-server/dist/index.js & SLACK_PORT=3000 node slack-app/dist/app.js & wait",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.26.0",
+    "eslint": "^9.26.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.32.0",
+    "vitest": "^3.1.3"
+  }
+}

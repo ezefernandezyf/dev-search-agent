@@ -1,3 +1,6 @@
+# Engram persistent memory
+.engram/
+
 # SDD artifacts (index only, not skill files)
 .atl/
 
